@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlyBeans — The Coffee That Actually Gets You Off The Ground</title>
+  <meta name="description" content="Not all beans are created equal. FlyBeans is your obsessive guide to specialty coffee, rare roasts, and the beans that changed everything. This premium domain is also for sale." />
+  <meta property="og:title" content="FlyBeans — The Coffee That Actually Gets You Off The Ground" />
+  <meta property="og:description" content="From Ethiopian highlands to your morning cup — the story of the world's most extraordinary beans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:    #f7f0e3;
+      --latte:    #e8d5b0;
+      --espresso: #1c0f05;
+      --roast:    #3d1f08;
+      --caramel:  #c47d2e;
+      --caramel-light: #e09840;
+      --steam:    #d4bfa0;
+      --matcha:   #5a7a3a;
+      --sky:      #c8dff0;
+      --fog:      #8a7a6a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--espresso);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    ::selection { background: var(--caramel); color: var(--cream); }
+
+    /* ── GRAIN OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+      mix-blend-mode: multiply;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(247,240,227,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196,125,46,0.15);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--espresso);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--caramel); }
+    .nav-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fog);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--caramel); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Diagonal bg split */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(160deg, #e8c98a 0%, #c47d2e22 50%, transparent 100%);
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+
+    .hero-left { position: relative; z-index: 1; }
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.0;
+      color: var(--espresso);
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.4s;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--caramel);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--fog);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.7s;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1s;
+    }
+
+    .btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.25s;
+    }
+    .btn-dark {
+      background: var(--espresso);
+      color: var(--cream);
+    }
+    .btn-dark:hover {
+      background: var(--roast);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(28,15,5,0.25);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--espresso);
+      border: 1.5px solid var(--espresso);
+    }
+    .btn-outline:hover {
+      background: var(--espresso);
+      color: var(--cream);
+    }
+
+    /* Big bean SVG illustration */
+    .bean-illustration {
+      width: min(380px, 90%);
+      height: min(380px, 90%);
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards 0.6s, float 6s ease-in-out infinite 1.8s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50%       { transform: translateY(-18px) rotate(2deg); }
+    }
+
+    /* Steam animation */
+    .steam-line {
+      animation: steamRise var(--d, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+    @keyframes steamRise {
+      0%   { transform: translateY(0) scaleX(1);   opacity: 0; }
+      20%  { opacity: 0.6; }
+      80%  { opacity: 0.3; }
+      100% { transform: translateY(-30px) scaleX(1.5); opacity: 0; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--espresso);
+      color: var(--caramel-light);
+      padding: 0.7rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 25s linear infinite;
+    }
+    .ticker-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      padding: 0 3rem;
+    }
+    .ticker-dot { color: var(--caramel); }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--espresso);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    h2 em { color: var(--caramel); font-style: italic; }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 0.5rem;
+    }
+
+    p { color: var(--fog); margin-bottom: 1rem; }
+    p strong { color: var(--espresso); }
+
+    /* ── ORIGIN GRID ── */
+    .origin-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero::before { width: 100%; clip-path: none; top: auto; bottom: 0; height: 40%; }
+      .origin-grid { grid-template-columns: 1fr; gap: 2rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 4rem 1.5rem; }
+    }
+
+    .origin-text p { font-size: 1.05rem; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--latte);
+      border: 1px solid var(--latte);
+      margin-top: 3rem;
+    }
+    .stat {
+      background: var(--cream);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--caramel);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fog);
+    }
+
+    /* ── BEAN TYPES ── */
+    .beans-section {
+      background: var(--espresso);
+      padding: 6rem 3rem;
+    }
+    .beans-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .beans-section .section-tag { color: var(--caramel-light); }
+    .beans-section h2 { color: var(--cream); }
+    .beans-section h2 em { color: var(--caramel-light); }
+
+    .beans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 3rem;
+    }
+    .bean-card {
+      background: var(--roast);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .bean-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 100px; height: 100px;
+      background: var(--caramel);
+      border-radius: 50%;
+      opacity: 0.05;
+      transition: transform 0.4s;
+    }
+    .bean-card:hover { background: #2a1505; transform: translateY(-4px); }
+    .bean-card:hover::before { transform: scale(2.5); opacity: 0.08; }
+
+    .bean-emoji { font-size: 2.2rem; display: block; margin-bottom: 1rem; }
+    .bean-card h3 { color: var(--latte); margin-bottom: 0.5rem; }
+    .bean-card p { color: rgba(208,191,160,0.7); font-size: 0.95rem; }
+    .bean-origin {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--caramel);
+      text-transform: uppercase;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    /* ── WHY FLY ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 5rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) { .why-grid { grid-template-columns: 1fr; } }
+
+    .why-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .why-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--latte);
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: -0.3rem;
+    }
+
+    /* ── SALE SECTION ── */
+    .sale-section {
+      background: linear-gradient(135deg, var(--caramel) 0%, #a06020 100%);
+      padding: 6rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sale-section::before {
+      content: 'FLYBEANS';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 18vw;
+      font-weight: 900;
+      color: rgba(255,255,255,0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .sale-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .sale-tag-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      color: var(--cream);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .sale-domain {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      color: var(--cream);
+      display: block;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .sale-section p { color: rgba(247,240,227,0.8); font-size: 1.05rem; margin-bottom: 2rem; }
+    .sale-contact {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--caramel);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .sale-contact:hover {
+      background: var(--espresso);
+      color: var(--cream);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--espresso);
+      color: rgba(208,191,160,0.4);
+      text-align: center;
+      padding: 2.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Fly<span>Beans</span></div>
+  <a href="#forsale" class="nav-link">Domain for Sale →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">☕ &nbsp; Specialty Coffee Intelligence &nbsp; ☕</p>
+    <h1>The Beans<br/>That Make You<br/><em>Fly.</em></h1>
+    <p class="hero-sub">Not all coffee is created equal. Some beans are farmed by hand at 2,000 metres above sea level. Some change your morning forever. These are those beans.</p>
+    <div class="hero-cta">
+      <a href="#origins" class="btn btn-dark">Explore Origins</a>
+      <a href="#forsale" class="btn btn-outline">Own This Domain</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- SVG Bean Illustration -->
+    <svg class="bean-illustration" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background circle -->
+      <circle cx="200" cy="220" r="155" fill="#e8c98a" opacity="0.4"/>
+      <circle cx="200" cy="220" r="120" fill="#d4a855" opacity="0.2"/>
+
+      <!-- Cup -->
+      <ellipse cx="200" cy="310" rx="90" ry="18" fill="#3d1f08" opacity="0.15"/>
+      <path d="M120 280 Q120 330 200 335 Q280 330 280 280 L265 230 H135 Z" fill="#1c0f05"/>
+      <path d="M135 230 H265 Q268 218 200 215 Q132 218 135 230Z" fill="#3d1f08"/>
+      <!-- Cup shine -->
+      <path d="M145 250 Q155 245 155 270" stroke="rgba(255,255,255,0.08)" stroke-width="8" stroke-linecap="round"/>
+      <!-- Handle -->
+      <path d="M280 250 Q320 250 320 275 Q320 300 280 295" stroke="#1c0f05" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+      <!-- Coffee surface -->
+      <ellipse cx="200" cy="230" rx="65" ry="13" fill="#5a2d0c"/>
+      <ellipse cx="200" cy="230" rx="55" ry="10" fill="#6b3510"/>
+      <!-- Latte art swirl -->
+      <path d="M175 228 Q185 222 200 228 Q215 234 225 228" stroke="#c47d2e" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <path d="M183 232 Q192 227 205 232" stroke="#c47d2e" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+      <!-- Steam -->
+      <g opacity="0.6">
+        <path class="steam-line" style="--d:3s;--delay:0s" d="M180 215 Q175 200 182 188 Q189 176 184 163" stroke="#d4bfa0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path class="steam-line" style="--d:3.5s;--delay:0.8s" d="M200 212 Q195 197 202 185 Q209 173 204 160" stroke="#d4bfa0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path class="steam-line" style="--d:4s;--delay:1.6s" d="M220 215 Q215 200 222 188 Q229 176 224 163" stroke="#d4bfa0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Flying beans -->
+      <!-- Bean 1 -->
+      <g transform="translate(80, 130) rotate(-30)">
+        <ellipse cx="0" cy="0" rx="22" ry="14" fill="#3d1f08"/>
+        <path d="M-18 0 Q0 -8 18 0" stroke="#5a2d0c" stroke-width="2.5" fill="none"/>
+      </g>
+      <!-- Bean 2 -->
+      <g transform="translate(320, 150) rotate(20)">
+        <ellipse cx="0" cy="0" rx="18" ry="11" fill="#5a2d0c"/>
+        <path d="M-15 0 Q0 -6 15 0" stroke="#7a3d10" stroke-width="2" fill="none"/>
+      </g>
+      <!-- Bean 3 -->
+      <g transform="translate(95, 195) rotate(15)">
+        <ellipse cx="0" cy="0" rx="14" ry="9" fill="#6b3510"/>
+        <path d="M-12 0 Q0 -5 12 0" stroke="#8a4a18" stroke-width="1.5" fill="none"/>
+      </g>
+      <!-- Bean 4 -->
+      <g transform="translate(310, 200) rotate(-15)">
+        <ellipse cx="0" cy="0" rx="16" ry="10" fill="#4a2508"/>
+        <path d="M-13 0 Q0 -5 13 0" stroke="#6a3510" stroke-width="2" fill="none"/>
+      </g>
+      <!-- Bean 5 top -->
+      <g transform="translate(200, 95) rotate(45)">
+        <ellipse cx="0" cy="0" rx="20" ry="13" fill="#3d1f08"/>
+        <path d="M-17 0 Q0 -7 17 0" stroke="#5a2d0c" stroke-width="2.5" fill="none"/>
+      </g>
+
+      <!-- Sparkles -->
+      <g fill="#c47d2e" opacity="0.6">
+        <polygon points="65,155 67,162 74,162 68,166 70,173 65,169 60,173 62,166 56,162 63,162" transform="scale(0.6) translate(45,80)"/>
+        <polygon points="65,155 67,162 74,162 68,166 70,173 65,169 60,173 62,166 56,162 63,162" transform="scale(0.4) translate(520,200)"/>
+        <polygon points="65,155 67,162 74,162 68,166 70,173 65,169 60,173 62,166 56,162 63,162" transform="scale(0.5) translate(260,50)"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Ethiopian Yirgacheffe</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Colombian Supremo</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Jamaican Blue Mountain</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Kona Hawaii</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Guatemalan Antigua</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Kenya AA</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Panama Geisha</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Brazil Santos</span><span class="ticker-dot">✦</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item">Ethiopian Yirgacheffe</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Colombian Supremo</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Jamaican Blue Mountain</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Kona Hawaii</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Guatemalan Antigua</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Kenya AA</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Panama Geisha</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Brazil Santos</span><span class="ticker-dot">✦</span>
+  </div>
+</div>
+
+<!-- ORIGINS -->
+<div id="origins">
+  <section class="section">
+    <div class="origin-grid reveal">
+      <div class="origin-text">
+        <p class="section-tag">// The Story</p>
+        <h2>From Highlands to<br/><em>Your Morning Cup</em></h2>
+        <p>Coffee is the world's second most traded commodity. Over <strong>2.25 billion cups</strong> are consumed every single day. But most people have no idea where their beans come from, how they were grown, or why some cups taste like blueberries and others like dark chocolate.</p>
+        <p>FlyBeans exists to close that gap. We trace specialty beans from their origin farms — many above 1,800 metres altitude — through the roasting process, all the way to your cup. Because <strong>the bean is everything.</strong></p>
+        <p>When you understand your beans, your entire relationship with coffee changes. It stops being a habit and becomes something closer to a religion.</p>
+      </div>
+      <div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-number">70+</span>
+            <span class="stat-label">Countries Growing Coffee</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">2B+</span>
+            <span class="stat-label">Cups Per Day Worldwide</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">1K+</span>
+            <span class="stat-label">Flavour Compounds in a Bean</span>
+          </div>
+        </div>
+        <p style="font-size:0.85rem; margin-top:1rem; font-style:italic;">Coffee contains more flavour compounds than wine. Most people taste maybe three of them.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- BEAN TYPES -->
+<div class="beans-section">
+  <div class="beans-inner">
+    <p class="section-tag">// The World's Best Beans</p>
+    <h2>Beans That Actually<br/><em>Change Things</em></h2>
+    <div class="beans-grid">
+      <div class="bean-card">
+        <span class="bean-emoji">🫐</span>
+        <h3>Ethiopian Yirgacheffe</h3>
+        <p>Tastes like blueberries and jasmine. Not a metaphor — literally. The natural processing of these beans produces fruit-forward flavours unlike anything else on earth.</p>
+        <span class="bean-origin">Origin: Gedeo Zone, Ethiopia · Alt. 1,700–2,200m</span>
+      </div>
+      <div class="bean-card">
+        <span class="bean-emoji">🌺</span>
+        <h3>Panama Geisha</h3>
+        <p>The rarest and most expensive bean in the world. Auctioned annually for thousands per kilogram. Floral, delicate, and completely unlike any coffee you've had before.</p>
+        <span class="bean-origin">Origin: Boquete, Panama · Alt. 1,600–1,800m</span>
+      </div>
+      <div class="bean-card">
+        <span class="bean-emoji">🍫</span>
+        <h3>Colombian Supremo</h3>
+        <p>The gold standard of everyday excellence. Rich chocolate undertones, full body, bright acidity. The bean that put specialty coffee on the global map.</p>
+        <span class="bean-origin">Origin: Huila & Nariño, Colombia · Alt. 1,500–2,000m</span>
+      </div>
+      <div class="bean-card">
+        <span class="bean-emoji">🏔️</span>
+        <h3>Jamaican Blue Mountain</h3>
+        <p>Grown in a legally protected region. Mild, balanced, never bitter. Japan buys 80% of the entire harvest every year. If you find it, buy it.</p>
+        <span class="bean-origin">Origin: Blue Mountains, Jamaica · Alt. 900–1,700m</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY FLY -->
+<section class="section reveal">
+  <p class="section-tag">// Why It Matters</p>
+  <h2>Four Reasons the Bean<br/><em>Changes Everything</em></h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <span class="why-number">01</span>
+      <div>
+        <h3>Altitude is Flavour</h3>
+        <p>Beans grown at higher altitudes develop slower, producing denser, more complex flavour profiles. This is why mountain beans taste different from lowland ones.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-number">02</span>
+      <div>
+        <h3>Processing is Everything</h3>
+        <p>Washed, natural, honey — how a bean is processed after picking determines 40% of its final flavour. Most people have never tasted all three from the same farm.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-number">03</span>
+      <div>
+        <h3>Roast Changes the Bean</h3>
+        <p>Light roasts preserve origin flavours. Dark roasts develop roast flavours. Neither is better — but knowing the difference makes you dangerous at any café.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <span class="why-number">04</span>
+      <div>
+        <h3>Freshness is Non-Negotiable</h3>
+        <p>Coffee goes stale within weeks of roasting. The beans in most supermarkets were roasted months ago. Once you taste fresh-roasted, there's no going back.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR SALE -->
+<section class="sale-section" id="forsale">
+  <div class="sale-inner">
+    <span class="sale-tag-pill">Premium Domain Available</span>
+    <span class="sale-domain">flybeans.com</span>
+    <p>A short, memorable, brandable domain with immediate personality. Perfect for a specialty coffee brand, food & beverage startup, subscription box, roastery, or any venture that wants a name people actually remember.</p>
+    <a href="mailto:dejan.madz@gmail.com" class="sale-contact">Make an Offer → dejan.madz@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>☕ &nbsp; FLYBEANS.COM &nbsp; ☕ &nbsp; &nbsp; The bean is everything.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .bean-card, .why-item, .stat, .tl-item').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
